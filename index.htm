@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-US"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<meta charset="utf-8">
-	<title>Mezők, Jellemzők</title>
-	<meta name="description" content="Give your node.js express apps some extra arms">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="content/bootstrap.css">
-	<link rel="stylesheet" href="content/syntax.css">
-	<link rel="stylesheet" href="content/kraken.css">
+    <meta charset="utf-8">
+    <title>Mezők, Jellemzők</title>
+    <meta name="description" content="Give your node.js express apps some extra arms">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="content/bootstrap.css">
+    <link rel="stylesheet" href="content/syntax.css">
+    <link rel="stylesheet" href="content/raken.css">
 </head>
 <body data-spy="scroll" data-target="#documentation-nav">
 
@@ -23,14 +23,14 @@
 <li class=""><a href="#jellemzok">Jellemzők</a></li>
 <li class=""><a href="#irhato">Csak Írható</a></li>
 <li class=""><a href="#olvashato">Csak Olvasható</a></li>
-<li class=""><a href="#szamitott">Számított értékek</a></li>
+<li class=""><a href="#szamitott">Számított Jellemző</a></li>
 
 </nav>
 
 <div class="col-sm-9">
 <div id="gettingstarted" class="doc">
 
-<h2 id="started">Mezők, Jellemzők</h2>
+<h2 style="margin-top:10px" id="started">Mezők, Jellemzők</h2>
 <p>
 Ebben a C# leckében, a <code>mezőkről</code> és <code>jellemzőkről</code>, és azok kapcsolatáról lesz szó, továbbá arról, hogy ezek hogyan könnyítik és gyorsíják meg a programozást, mindezt gyakorlati példák segítségével. 
 </p>
@@ -38,19 +38,19 @@ Ebben a C# leckében, a <code>mezőkről</code> és <code>jellemzőkről</code>,
 A lecke megértéséhez feltétlenül szükséges hogy ismerd az objektumorientált programozás alapjait. Ebbe beletartozik az osztályok létrehozása, példányosítása, valamint hozzáférési szintek kezelése.
 </p>
 <h3 id="ismetles">Ismétlés</h3>
-<pre>
-class Foo
-{
-    public int adat = 5;
-}    
-Foo a = new Foo();
 
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#e66170; font-weight:bold; '>class</span> Foo
+<span style='color:#b060b0; '>{</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>int</span> adat <span style='color:#d2cd86; '>=</span> <span style='color:#008c00; '>5</span><span style='color:#b060b0; '>;</span>
+<span style='color:#b060b0; '>}</span>    
+Foo a <span style='color:#d2cd86; '>=</span> <span style='color:#e66170; font-weight:bold; '>new</span> Foo<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
 </pre>
 Foo osztály létrehozása és példányosítása. Az osztály nem tartalmaz <code>konstruktort</code>, csakis a <code>publikus</code> adat <code>mezőt.</code>
 A publikus mezőt szabadon <code>írhatjuk</code>, és <code>olvashatjuk</code>.
 <h3 id="mezok">Mezők</h3>
 <p>
-A mezők adatok tárolására alkalmasak, ezeke elláthatjuk elérhetőségi szinttel, de megukban kizárólag adattárolásra alkalmasak.
+A mezők adatok tárolására alkalmasak, ezeket elláthatjuk elérhetőségi szinttel, de magukban kizárólag adattárolásra alkalmasak.
 </p>
 <p>
 Objektumorientált programozásnál fontos szempont a <code>védettség</code> és az <code>adatrejtés</code>. Az előbbb bemutatott publikus mező nem megoldás, mivel az kivülről is elérhető.
@@ -61,41 +61,47 @@ Ezt nevezzük <code>közvetlen elérlésnek</code>, ami kerülendő. Hiszen öss
 </p>
 <h3 id="metomezok">Mezők elérése metódussal</h3>
 Egy megoldás erre, egy külön metódus létrehozása a védett mező elésérére.
-<pre>
-class Foo
-{
-	int adat = 5;
-	public void adat_ír(int a)
-	{
-		adat = a;
-	}
-	public int adat_olvas()
-	{
-		return adat;
-	}
-}
-Foo a = new Foo();
-a.adat_ír(6);
-a.adat_olvas();	// 6-al tér vissza
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#e66170; font-weight:bold; '>class</span> Foo
+<span style='color:#b060b0; '>{</span>
+    <span style='color:#e66170; font-weight:bold; '>int</span> adat <span style='color:#d2cd86; '>=</span> <span style='color:#008c00; '>5</span><span style='color:#b060b0; '>;</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>void</span> adat_ír<span style='color:#d2cd86; '>(</span><span style='color:#e66170; font-weight:bold; '>int</span> a<span style='color:#d2cd86; '>)</span>
+    <span style='color:#b060b0; '>{</span>
+        adat <span style='color:#d2cd86; '>=</span> a<span style='color:#b060b0; '>;</span>
+    <span style='color:#b060b0; '>}</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>int</span> adat_olvas<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+    <span style='color:#b060b0; '>{</span>
+        <span style='color:#e66170; font-weight:bold; '>return</span> adat<span style='color:#b060b0; '>;</span>
+    <span style='color:#b060b0; '>}</span>
+<span style='color:#b060b0; '>}</span>
+<span style='color:#e66170; font-weight:bold; '>static</span> <span style='color:#e66170; font-weight:bold; '>void</span> Main<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+<span style='color:#b060b0; '>{</span>
+    Foo a <span style='color:#d2cd86; '>=</span> <span style='color:#e66170; font-weight:bold; '>new</span> Foo<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    a<span style='color:#d2cd86; '>.</span>adat_ír<span style='color:#d2cd86; '>(</span><span style='color:#008c00; '>6</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    a<span style='color:#d2cd86; '>.</span>adat_olvas<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>    <span style='color:#9999a9; '>// 6-al tér vissza</span>
+<span style='color:#b060b0; '>}</span>
 </pre>
 Ez valójában megoldja a problémát de közel sem elegáns módszer. Érezhetően manuális a megavósítás, nekün kell létrehozni a védett mezőt és megírni, hogy mikor mi tőrténjen.
-Egy kicsit finomíhatnánk a metódus túltöltésével, például így;
-<pre>
-class Foo
-{
-	int _adat = 5;
-	public void adat(int a)
-	{
-		_adat = a;
-	}
-	public int adat()
-	{
-		return _adat;
-	}
-}
-Foo a = new Foo();
-a.adat(6);
-a.adat(); // 6-al tér vissza
+Egy kicsit finomíhatnánk a metódus túltöltésével, például így.
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#e66170; font-weight:bold; '>class</span> Foo
+<span style='color:#b060b0; '>{</span>
+    <span style='color:#e66170; font-weight:bold; '>int</span> _adat <span style='color:#d2cd86; '>=</span> <span style='color:#008c00; '>5</span><span style='color:#b060b0; '>;</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>void</span> adat<span style='color:#d2cd86; '>(</span><span style='color:#e66170; font-weight:bold; '>int</span> a<span style='color:#d2cd86; '>)</span>
+    <span style='color:#b060b0; '>{</span>
+        _adat <span style='color:#d2cd86; '>=</span> a<span style='color:#b060b0; '>;</span>
+    <span style='color:#b060b0; '>}</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>int</span> adat<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+    <span style='color:#b060b0; '>{</span>
+        <span style='color:#e66170; font-weight:bold; '>return</span> _adat<span style='color:#b060b0; '>;</span>
+    <span style='color:#b060b0; '>}</span>
+<span style='color:#b060b0; '>}</span>
+<span style='color:#e66170; font-weight:bold; '>static</span> <span style='color:#e66170; font-weight:bold; '>void</span> Main<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+<span style='color:#b060b0; '>{</span>
+    Foo a <span style='color:#d2cd86; '>=</span> <span style='color:#e66170; font-weight:bold; '>new</span> Foo<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    a<span style='color:#d2cd86; '>.</span>adat<span style='color:#d2cd86; '>(</span><span style='color:#008c00; '>6</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    a<span style='color:#d2cd86; '>.</span>adat<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span> <span style='color:#9999a9; '>// 6-al tér vissza</span>
+<span style='color:#b060b0; '>}</span>
 </pre>
 Érdemes megfigyelni, hogy itt a rejtett mező neve is megváltozott, elterjedt jelölés erre a változó előtti alulvonás.
 Ez azt a kis kényelmet nyerjük így, hogy az érték írása és olvasása egy metódusnév alatt elérhető.
@@ -103,112 +109,138 @@ Ez azt a kis kényelmet nyerjük így, hogy az érték írása és olvasása egy
 Jellemző, idegen szóval <code>property</code>, rugalmas megoldás a privát mezők, írására, olvasására és számítására.
 A jellemzőket pont úgy érjük el mint a publikus adattagokat, viszont valójában ezek speciális metódusok.
 Így ötvözi a künnyű adatelérést és a metódusok rugalmasságát és biztonságát.
-<pre>
-class Foo
-{
-	public int adat { get; set; }
-}
-Foo a = new Foo();
-a.adat = 6;
-int b = a.adat;	// b = 6
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#e66170; font-weight:bold; '>class</span> Foo
+<span style='color:#b060b0; '>{</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>int</span> adat <span style='color:#b060b0; '>{</span> get<span style='color:#b060b0; '>;</span> set<span style='color:#b060b0; '>;</span> <span style='color:#b060b0; '>}</span>
+<span style='color:#b060b0; '>}</span>
+<span style='color:#e66170; font-weight:bold; '>static</span> <span style='color:#e66170; font-weight:bold; '>void</span> Main<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+<span style='color:#b060b0; '>{</span>
+    Foo a <span style='color:#d2cd86; '>=</span> <span style='color:#e66170; font-weight:bold; '>new</span> Foo<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    a<span style='color:#d2cd86; '>.</span>adat <span style='color:#d2cd86; '>=</span> <span style='color:#008c00; '>6</span><span style='color:#b060b0; '>;</span>
+    <span style='color:#e66170; font-weight:bold; '>int</span> b <span style='color:#d2cd86; '>=</span> a<span style='color:#d2cd86; '>.</span>adat<span style='color:#b060b0; '>;</span>    <span style='color:#9999a9; '>// b = 6</span>
+<span style='color:#b060b0; '>}</span>
 </pre>
-Ez a megoldás az Auto-Implementált vagyis <code>automatikus</code> jellemzős megoldás, ez a leggyakoribb és a lehető legegyszerűbb.
-<pre>
-class Foo
-{
-	int _adat;
-	public int adat 
-	{
-		get 
-		{
-			return _adat;
-		}
-		set 
-		{
-			_adat = value;
-		}
-	}
-}
-Foo a = new Foo();
-a.adat = 6;
-int b = a.adat;	// b = 6
+Ez a megoldás az auto-implementált vagyis <code>automatikus</code> jellemzős megoldás, ez a leggyakoribb és a lehető legegyszerűbb.
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#e66170; font-weight:bold; '>class</span> Foo
+<span style='color:#b060b0; '>{</span>
+    <span style='color:#e66170; font-weight:bold; '>int</span> _adat<span style='color:#b060b0; '>;</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>int</span> adat 
+    <span style='color:#b060b0; '>{</span>
+        get 
+        <span style='color:#b060b0; '>{</span>
+            <span style='color:#e66170; font-weight:bold; '>return</span> _adat<span style='color:#b060b0; '>;</span>
+        <span style='color:#b060b0; '>}</span>
+        set 
+        <span style='color:#b060b0; '>{</span>
+            _adat <span style='color:#d2cd86; '>=</span> value<span style='color:#b060b0; '>;</span>
+        <span style='color:#b060b0; '>}</span>
+    <span style='color:#b060b0; '>}</span>
+<span style='color:#b060b0; '>}</span>
+<span style='color:#e66170; font-weight:bold; '>static</span> <span style='color:#e66170; font-weight:bold; '>void</span> Main<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+<span style='color:#b060b0; '>{</span>
+    Foo a <span style='color:#d2cd86; '>=</span> <span style='color:#e66170; font-weight:bold; '>new</span> Foo<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    a<span style='color:#d2cd86; '>.</span>adat <span style='color:#d2cd86; '>=</span> <span style='color:#008c00; '>6</span><span style='color:#b060b0; '>;</span>
+    <span style='color:#e66170; font-weight:bold; '>int</span> b <span style='color:#d2cd86; '>=</span> a<span style='color:#d2cd86; '>.</span>adat<span style='color:#b060b0; '>;</span>    <span style='color:#9999a9; '>// b = 6</span>
+<span style='color:#b060b0; '>}</span>
 </pre>
 Ez a megoldás szintén azonos feladatot lát el, viszont ez egy <code>manuálisan</code> megvalósított jellemző.
 Az automatikus jellemző valójában ugyanezt hajtra végre, ugyanúgy létrehoz egy privát mezőt és a hozzáférő metódusokat, de mindezt elrejti a programozó elől.
 <h3 id="irhato">Csak Írható Jellemzők</h3>
 Előfordul, hogy hogy osztályon kívülről csak a jellemző írásának, van értelme. Ezt könnyen megvalósíthatjuk <code>writeonly</code> jellemzővel.
-<pre>
-class Belépés
-{
-	string _jelszó = "";
-	public string jelszó
-	{
-		set { _jelszó = value; }
-	}
-	public bool belép(string j)
-	{
-		if (_jelszó == j)
-			return true;
-		return false;
-	}
-}
-static void Main()
-{
-	Belépés a = new Belépés();
-	a.jelszó = "asa"; 	//a jelszó legyen:asa
-	a.belép("asa");	 // true
-	a.belép(""); 	 // false
-}
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#e66170; font-weight:bold; '>class</span> Belépés
+<span style='color:#b060b0; '>{</span>
+    <span style='color:#e66170; font-weight:bold; '>string</span> _jelszó <span style='color:#d2cd86; '>=</span> <span style='color:#02d045; '>"</span><span style='color:#02d045; '>"</span><span style='color:#b060b0; '>;</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>string</span> jelszó
+    <span style='color:#b060b0; '>{</span>
+        set <span style='color:#b060b0; '>{</span> _jelszó <span style='color:#d2cd86; '>=</span> value<span style='color:#b060b0; '>;</span> <span style='color:#b060b0; '>}</span>
+    <span style='color:#b060b0; '>}</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>bool</span> belép<span style='color:#d2cd86; '>(</span><span style='color:#e66170; font-weight:bold; '>string</span> j<span style='color:#d2cd86; '>)</span>
+    <span style='color:#b060b0; '>{</span>
+        <span style='color:#e66170; font-weight:bold; '>if</span> <span style='color:#d2cd86; '>(</span>_jelszó <span style='color:#d2cd86; '>=</span><span style='color:#d2cd86; '>=</span> j<span style='color:#d2cd86; '>)</span>
+            <span style='color:#e66170; font-weight:bold; '>return</span> <span style='color:#e66170; font-weight:bold; '>true</span><span style='color:#b060b0; '>;</span>
+        <span style='color:#e66170; font-weight:bold; '>return</span> <span style='color:#e66170; font-weight:bold; '>false</span><span style='color:#b060b0; '>;</span>
+    <span style='color:#b060b0; '>}</span>
+<span style='color:#b060b0; '>}</span>
+<span style='color:#e66170; font-weight:bold; '>static</span> <span style='color:#e66170; font-weight:bold; '>void</span> Main<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+<span style='color:#b060b0; '>{</span>
+    Belépés a <span style='color:#d2cd86; '>=</span> <span style='color:#e66170; font-weight:bold; '>new</span> Belépés<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    a<span style='color:#d2cd86; '>.</span>jelszó <span style='color:#d2cd86; '>=</span> <span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>asa</span><span style='color:#02d045; '>"</span><span style='color:#b060b0; '>;</span>     <span style='color:#9999a9; '>//a jelszó legyen:asa</span>
+    a<span style='color:#d2cd86; '>.</span>belép<span style='color:#d2cd86; '>(</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>asa</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>     <span style='color:#9999a9; '>// true</span>
+    a<span style='color:#d2cd86; '>.</span>belép<span style='color:#d2cd86; '>(</span><span style='color:#02d045; '>"</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>      <span style='color:#9999a9; '>// false</span>
+<span style='color:#b060b0; '>}</span>
 </pre>
 A jelszó megváltoztatható de nem olvasható ki. Ez fontos bizonsági szempont. Jellemzőkkel egyszerűen megvalósítható.
 <h3 id="olvashato">Csak Olvasható Jellemzők</h3>
-Szintén nagyon gyakran haszálatos, a csak olvaható, <code>readonly</code> jellemző. Például egy számlóló állásának leolvasására használhatjuk;
-<pre>
-class Számláló
-{
-	int _n = 0;
-	public int állás
-	{
-		get{return _n;}
-	}   
-	public void tick()
-	{
-		_n++;
-	}
-}
-static void Main()
-{
-	Számláló s = new Számláló();
-	s.tick();
-	s.tick();
-	s.tick();
-	int b = s.állás; // b = 3
-}
+Szintén nagyon gyakran haszálatos, a csak olvasható. <code>readonly</code> jellemző. Például egy számlóló állásának leolvasására használhatjuk.
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#e66170; font-weight:bold; '>class</span> Számláló
+<span style='color:#b060b0; '>{</span>
+    <span style='color:#e66170; font-weight:bold; '>int</span> _n <span style='color:#d2cd86; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#b060b0; '>;</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>int</span> állás
+    <span style='color:#b060b0; '>{</span>
+        get<span style='color:#b060b0; '>{</span><span style='color:#e66170; font-weight:bold; '>return</span> _n<span style='color:#b060b0; '>;</span><span style='color:#b060b0; '>}</span>
+    <span style='color:#b060b0; '>}</span>   
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>void</span> tick<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+    <span style='color:#b060b0; '>{</span>
+        _n<span style='color:#d2cd86; '>+</span><span style='color:#d2cd86; '>+</span><span style='color:#b060b0; '>;</span>
+    <span style='color:#b060b0; '>}</span>
+<span style='color:#b060b0; '>}</span>
+<span style='color:#e66170; font-weight:bold; '>static</span> <span style='color:#e66170; font-weight:bold; '>void</span> Main<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+<span style='color:#b060b0; '>{</span>
+    Számláló s <span style='color:#d2cd86; '>=</span> <span style='color:#e66170; font-weight:bold; '>new</span> Számláló<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    s<span style='color:#d2cd86; '>.</span>tick<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    s<span style='color:#d2cd86; '>.</span>tick<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    s<span style='color:#d2cd86; '>.</span>tick<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    <span style='color:#e66170; font-weight:bold; '>int</span> b <span style='color:#d2cd86; '>=</span> s<span style='color:#d2cd86; '>.</span>állás<span style='color:#b060b0; '>;</span> <span style='color:#9999a9; '>// b = 3</span>
+<span style='color:#b060b0; '>}</span>
 </pre>
-<h3 id="szamitott">Számított értékek</h3>
+<h3 id="szamitott">Számított Jellemző</h3>
 Szintén gyakran használt, hogy egy jellemző további jellemzők értékétől függ.
-<pre>
-class Név
-{
-	public string vezetéknév { get; set; }
-	public string keresztnév { get; set; }
-	public string teljesnév 
-	{ 
-		get 
-		{
-			return vezetéknév + " " + keresztnév;
-		}
-	}
-}
-static void Main()
-{
-	Név n = new Név();
-	n.vezetéknév = "Bordák";
-	n.keresztnév = "Tamás";
-	string t = n.teljesnév; // t = "Bordák Tamás"
-}
-
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#e66170; font-weight:bold; '>class</span> Név
+<span style='color:#b060b0; '>{</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>string</span> vezetéknév <span style='color:#b060b0; '>{</span> get<span style='color:#b060b0; '>;</span> set<span style='color:#b060b0; '>;</span> <span style='color:#b060b0; '>}</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>string</span> keresztnév <span style='color:#b060b0; '>{</span> get<span style='color:#b060b0; '>;</span> set<span style='color:#b060b0; '>;</span> <span style='color:#b060b0; '>}</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>string</span> teljesnév 
+    <span style='color:#b060b0; '>{</span> 
+        get 
+        <span style='color:#b060b0; '>{</span>
+            <span style='color:#e66170; font-weight:bold; '>return</span> vezetéknév <span style='color:#d2cd86; '>+</span> <span style='color:#02d045; '>"</span><span style='color:#00c4c4; '> </span><span style='color:#02d045; '>"</span> <span style='color:#d2cd86; '>+</span> keresztnév<span style='color:#b060b0; '>;</span>
+        <span style='color:#b060b0; '>}</span>
+    <span style='color:#b060b0; '>}</span>
+<span style='color:#b060b0; '>}</span>
+<span style='color:#e66170; font-weight:bold; '>static</span> <span style='color:#e66170; font-weight:bold; '>void</span> Main<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+<span style='color:#b060b0; '>{</span>
+    Név n <span style='color:#d2cd86; '>=</span> <span style='color:#e66170; font-weight:bold; '>new</span> Név<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    n<span style='color:#d2cd86; '>.</span>vezetéknév <span style='color:#d2cd86; '>=</span> <span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>Bordák</span><span style='color:#02d045; '>"</span><span style='color:#b060b0; '>;</span>
+    n<span style='color:#d2cd86; '>.</span>keresztnév <span style='color:#d2cd86; '>=</span> <span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>Tamás</span><span style='color:#02d045; '>"</span><span style='color:#b060b0; '>;</span>
+    <span style='color:#e66170; font-weight:bold; '>string</span> t <span style='color:#d2cd86; '>=</span> n<span style='color:#d2cd86; '>.</span>teljesnév<span style='color:#b060b0; '>;</span> <span style='color:#9999a9; '>// t = "Bordák Tamás"</span>
+<span style='color:#b060b0; '>}</span>
 </pre>
+Hasonló megoldás másodperc és óra közti átváltásra.
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#e66170; font-weight:bold; '>class</span> Idő
+<span style='color:#b060b0; '>{</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>int</span> másodperc <span style='color:#b060b0; '>{</span> get<span style='color:#b060b0; '>;</span> set<span style='color:#b060b0; '>;</span> <span style='color:#b060b0; '>}</span>
+    <span style='color:#e66170; font-weight:bold; '>public</span> <span style='color:#e66170; font-weight:bold; '>float</span> óra
+    <span style='color:#b060b0; '>{</span>
+        get <span style='color:#b060b0; '>{</span> <span style='color:#e66170; font-weight:bold; '>return</span> másodperc <span style='color:#d2cd86; '>/</span> 3600f<span style='color:#b060b0; '>;</span> <span style='color:#b060b0; '>}</span>
+        set <span style='color:#b060b0; '>{</span> másodperc <span style='color:#d2cd86; '>=</span> <span style='color:#d2cd86; '>(</span><span style='color:#e66170; font-weight:bold; '>int</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>(</span>value <span style='color:#d2cd86; '>*</span> <span style='color:#008c00; '>3600</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span> <span style='color:#b060b0; '>}</span>
+    <span style='color:#b060b0; '>}</span>
+<span style='color:#b060b0; '>}</span>
+<span style='color:#e66170; font-weight:bold; '>static</span> <span style='color:#e66170; font-weight:bold; '>void</span> Main<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+<span style='color:#b060b0; '>{</span>
+    Idő i <span style='color:#d2cd86; '>=</span> <span style='color:#e66170; font-weight:bold; '>new</span> Idő<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#b060b0; '>;</span>
+    i<span style='color:#d2cd86; '>.</span>másodperc <span style='color:#d2cd86; '>=</span> <span style='color:#008c00; '>2700</span><span style='color:#b060b0; '>;</span>
+    <span style='color:#e66170; font-weight:bold; '>float</span> t <span style='color:#d2cd86; '>=</span> i<span style='color:#d2cd86; '>.</span>óra<span style='color:#b060b0; '>;</span> <span style='color:#9999a9; '>// t = 0,75</span>
+    i<span style='color:#d2cd86; '>.</span>óra <span style='color:#d2cd86; '>=</span> <span style='color:#009f00; '>0.5</span><span style='color:#006600; '>f</span><span style='color:#b060b0; '>;</span> 
+    <span style='color:#e66170; font-weight:bold; '>int</span> mp <span style='color:#d2cd86; '>=</span> i<span style='color:#d2cd86; '>.</span>másodperc<span style='color:#b060b0; '>;</span> <span style='color:#9999a9; '>// mp = 1800</span>
+<span style='color:#b060b0; '>}</span>
+</pre>
+
 </div>
             </div>
 
@@ -219,14 +251,14 @@ static void Main()
 
 <script>
 window.onscroll = scroll;
-var le = 100;
+var le = 43;
 document.querySelector("#documentation-nav .affix").style["top"]= le-window.pageYOffset + "px";
 function scroll () 
 {
-	if(window.pageYOffset > le)
-		document.querySelector("#documentation-nav .affix").style["top"]= 0;
-	else
-		document.querySelector("#documentation-nav .affix").style["top"]= le-window.pageYOffset + "px";
+    if(window.pageYOffset > le)
+        document.querySelector("#documentation-nav .affix").style["top"]= 0;
+    else
+        document.querySelector("#documentation-nav .affix").style["top"]= le-window.pageYOffset + "px";
 }
 </script>
 
