@@ -1,0 +1,13 @@
+Mezõk és jellemzõk
+•	Objektumok létrehozása, alaptulajdonságai
+•	Mi az Adatmezõ
+•	Közvetelen elérés, és hátrányai
+•	Public metódusok, mint megoldás az adatrajtésre
+•	Mi a Jellemzõ
+•	Jellemzõ elõnyei a metódusokkal szemben
+•	Csak olvasható jellemzõk
+•	Csak írható jellemzõk
+•	Írható, olvasható jellemzõk
+•	Összetett mûveletek, mûveletvégzés jellemzõkkel
+•	Automatikus jellemzõk
+•	Hozzáférési módosítók
