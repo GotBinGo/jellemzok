@@ -2,7 +2,7 @@
 <html lang="en-US"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
-	<title>Mezők Jellemzők</title>
+	<title>Mezők, Jellemzők</title>
 	<meta name="description" content="Give your node.js express apps some extra arms">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="content/bootstrap.css">
@@ -15,54 +15,64 @@
 <div class="container">
 
 <nav id="documentation-nav" class="col-sm-3 hidden-xs">
-<ul style="top: 490px;" class="nav affix"><li class=""><a href="#gettingstarted">Getting started</a></li><li class=""><a href="#structure-of-a-project">Structure of a Project</a></li><li class=""><a href="#configuration">Configuration</a></li><li class="active"><a href="#security">Security</a></li><li><a href="#routes">Routes</a></li><li><a href="#models">Models</a></li><li><a href="#templates">Templates</a></li><li><a href="#localization">Localization</a></li><li><a href="#faq">FAQ</a></li><li><a href="#examples">Examples</a></li></ul>
+<ul style="top: 490px;" class="nav affix">
+<li class=""><a href="#ismetles">Ismétlés</a></li>
+<li class=""><a href="#mezok">Mezők</a></li>
+<li class=""><a href="#metomezok">Mezők elérése metódussal</a></li>
 </nav>
 
 <div class="col-sm-9">
 <div id="gettingstarted" class="doc">
 
-<h2 id="getting-started">Mezők Jellemzők</h2>
-<h3 id="localization">Localization</h3>
-
-<p>Thanks to <a href="#">Makara</a>, 
-kraken has the ability to load content bundles on the fly, based on the 
-request context. If we wanted to greet a user in their native language 
-(e.g.: Spanish), we can simply add this context to the response before 
-rendering the template:</p>
-
-<div class="highlight">
+<h2 id="getting-started">Mezők, Jellemzők</h2>
+<p>
+Ebben a C# leckében, a <code>mezőkről</code> és <code>jellemzőkről</code>, és azok kapcsolatáról lesz szó, továbbá arról, hogy ezek hogyan könnyítik és gyorsíják meg a programozást, mindezt gyakorlati példák segítségével. 
+</p>
+<p>
+A lecke megértéséhez feltétlenül szükséges hogy ismerd az objektumorientált programozás alapjait. Ebbe beletartozik az osztályok létrehozása, példányosítása, valamint hozzáférési szintek kezelése.
+</p>
+<h3 id="ismetles">Ismétlés</h3>
 <pre>
-<code class="language-javascript" data-lang="javascript"><span class="nx">res</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">context</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">locality</span><span class="o">:</span> <span class="p">{</span> <span class="nx">language</span><span class="o">:</span> <span class="s1">'es'</span><span class="p">,</span> <span class="nx">country</span><span class="o">:</span> <span class="s1">'ES'</span> <span class="p">}</span> <span class="p">};</span>
-<span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">'Antonio Banderas'</span> <span class="p">};</span>
-<span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">'index'</span><span class="p">,</span><span class="nx">model</span><span class="p">);</span>
-<span style='color:#e66170; font-weight:bold; '>var</span> a  <span style='color:#d2cd86; '>=</span> <span style='color:#008c00; '>5</span><span style='color:#b060b0; '>;</span>
-</code>
+class Foo
+{
+    public int adat = 5;
+}    
+Foo a = new Foo();
+
+</pre>
+Foo osztály létrehozása és példányosítása. Az osztály nem tartalmaz <code>konstruktort</code>, csakis a <code>publikus</code> adat <code>mezőt.</code>
+A publikus mezőt szabadon <code>írhatjuk</code>, és <code>olvashatjuk</code>.
+<h3 id="mezok">Mezők</h3>
+<p>
+A mezők adatok tárolására alkalmasak, ezeke elláthatjuk elérhetőségi szinttel, de megukban kizárólag adattárolásra alkalmasak.
+</p>
+<p>
+Objektumorientált programozásnál fontos szempont a <code>védettség</code> és az <code>adatrejtés</code>. Az előbbb bemutatott publikus mező nem megoldás, mivel az kivülről is elérhető.
+</p>
+<p>
+Ezt nevezzük <code>közvetlen elérlésnek</code>, ami kerülendő. Hiszen összetett struktúráknál átláthatatlanná válik, hogy melyik mezőt mikor, mire módosítjuk.
+Így kétségtelen, hogy a mezőnek védettnek kell lennie, és az elérést máshogy kell megoldani.
+</p>
+<h3 id="metomezok">Mezők elérése metódussal</h3>
+Egy megoldás erre, egy külön metódus létrehozása a védett mező elésérére.
+<pre>
+class Foo
+{
+	int adat = 5;
+	public void adat_ír(int a)
+	{
+		adat = a;
+	}
+	public int adat_olvas()
+	{
+		return adat;
+	}
+}
+Foo a = new Foo();
+a.adat_ír(6);
+a.adat_olvas(); //6-al tér vissza
 </pre>
 
-
-
-
-
-
-</div>
-
-<p>We would also change our template as follows, using a <code>@pre type="content"</code> tag:</p>
-
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1&gt;</span>{@pre type="content" key="index.greeting"/}<span class="nt">&lt;/h1&gt;</span></code></pre></div>
-
-<p>This instructs the framework to pick up the index.greeting string from one of the locale content bundles.</p>
-
-<p>The <code>locales</code> directory holds these bundles, organized by country and language. The bundles are nothing more than simple <code>key=value</code> .property files. If our sample application caters to English and Spanish speakers, we would create two bundles:</p>
-
-<p><code>locales/US/en/index.properties</code> to hold <code>index.greeting=Hello {name}!</code></p>
-
-<p>and</p>
-
-<p><code>locales/ES/es/index.properties</code> to hold <code>index.greeting=Hola {name}!</code></p>
-
-<p>So, in the above example, since the language and country are set to <code>es</code> and <code>ES</code> respectively, the framework would pick the second bundle and display:</p>
-
-<div class="highlight"><pre><code class="language-text" data-lang="text">Hola Antonio Banderas!</code></pre></div>
 
 </div>
             </div>
@@ -74,7 +84,7 @@ rendering the template:</p>
 
 <script>
 window.onscroll = scroll;
-var le = 0;
+var le = 100;
 document.querySelector("#documentation-nav .affix").style["top"]= le-window.pageYOffset + "px";
 function scroll () 
 {
