@@ -16,15 +16,21 @@
 
 <nav id="documentation-nav" class="col-sm-3 hidden-xs">
 <ul style="top: 490px;" class="nav affix">
+<li class=""><a href="#started">Bevezetés</a></li>
 <li class=""><a href="#ismetles">Ismétlés</a></li>
 <li class=""><a href="#mezok">Mezők</a></li>
-<li class=""><a href="#metomezok">Mezők elérése metódussal</a></li>
+<li class=""><a href="#metomezok">Elérés metódussal</a></li>
+<li class=""><a href="#jellemzok">Jellemzők</a></li>
+<li class=""><a href="#irhato">Csak Írható</a></li>
+<li class=""><a href="#olvashato">Csak Olvasható</a></li>
+<li class=""><a href="#szamitott">Számított értékek</a></li>
+
 </nav>
 
 <div class="col-sm-9">
 <div id="gettingstarted" class="doc">
 
-<h2 id="getting-started">Mezők, Jellemzők</h2>
+<h2 id="started">Mezők, Jellemzők</h2>
 <p>
 Ebben a C# leckében, a <code>mezőkről</code> és <code>jellemzőkről</code>, és azok kapcsolatáról lesz szó, továbbá arról, hogy ezek hogyan könnyítik és gyorsíják meg a programozást, mindezt gyakorlati példák segítségével. 
 </p>
@@ -70,10 +76,139 @@ class Foo
 }
 Foo a = new Foo();
 a.adat_ír(6);
-a.adat_olvas(); //6-al tér vissza
+a.adat_olvas();	// 6-al tér vissza
 </pre>
+Ez valójában megoldja a problémát de közel sem elegáns módszer. Érezhetően manuális a megavósítás, nekün kell létrehozni a védett mezőt és megírni, hogy mikor mi tőrténjen.
+Egy kicsit finomíhatnánk a metódus túltöltésével, például így;
+<pre>
+class Foo
+{
+	int _adat = 5;
+	public void adat(int a)
+	{
+		_adat = a;
+	}
+	public int adat()
+	{
+		return _adat;
+	}
+}
+Foo a = new Foo();
+a.adat(6);
+a.adat(); // 6-al tér vissza
+</pre>
+Érdemes megfigyelni, hogy itt a rejtett mező neve is megváltozott, elterjedt jelölés erre a változó előtti alulvonás.
+Ez azt a kis kényelmet nyerjük így, hogy az érték írása és olvasása egy metódusnév alatt elérhető.
+<h3 id="jellemzok">Jellemzők</h3>
+Jellemző, idegen szóval <code>property</code>, rugalmas megoldás a privát mezők, írására, olvasására és számítására.
+A jellemzőket pont úgy érjük el mint a publikus adattagokat, viszont valójában ezek speciális metódusok.
+Így ötvözi a künnyű adatelérést és a metódusok rugalmasságát és biztonságát.
+<pre>
+class Foo
+{
+	public int adat { get; set; }
+}
+Foo a = new Foo();
+a.adat = 6;
+int b = a.adat;	// b = 6
+</pre>
+Ez a megoldás az Auto-Implementált vagyis <code>automatikus</code> jellemzős megoldás, ez a leggyakoribb és a lehető legegyszerűbb.
+<pre>
+class Foo
+{
+	int _adat;
+	public int adat 
+	{
+		get 
+		{
+			return _adat;
+		}
+		set 
+		{
+			_adat = value;
+		}
+	}
+}
+Foo a = new Foo();
+a.adat = 6;
+int b = a.adat;	// b = 6
+</pre>
+Ez a megoldás szintén azonos feladatot lát el, viszont ez egy <code>manuálisan</code> megvalósított jellemző.
+Az automatikus jellemző valójában ugyanezt hajtra végre, ugyanúgy létrehoz egy privát mezőt és a hozzáférő metódusokat, de mindezt elrejti a programozó elől.
+<h3 id="irhato">Csak Írható Jellemzők</h3>
+Előfordul, hogy hogy osztályon kívülről csak a jellemző írásának, van értelme. Ezt könnyen megvalósíthatjuk <code>writeonly</code> jellemzővel.
+<pre>
+class Belépés
+{
+	string _jelszó = "";
+	public string jelszó
+	{
+		set { _jelszó = value; }
+	}
+	public bool belép(string j)
+	{
+		if (_jelszó == j)
+			return true;
+		return false;
+	}
+}
+static void Main()
+{
+	Belépés a = new Belépés();
+	a.jelszó = "asa"; 	//a jelszó legyen:asa
+	a.belép("asa");	 // true
+	a.belép(""); 	 // false
+}
+</pre>
+A jelszó megváltoztatható de nem olvasható ki. Ez fontos bizonsági szempont. Jellemzőkkel egyszerűen megvalósítható.
+<h3 id="olvashato">Csak Olvasható Jellemzők</h3>
+Szintén nagyon gyakran haszálatos, a csak olvaható, <code>readonly</code> jellemző. Például egy számlóló állásának leolvasására használhatjuk;
+<pre>
+class Számláló
+{
+	int _n = 0;
+	public int állás
+	{
+		get{return _n;}
+	}   
+	public void tick()
+	{
+		_n++;
+	}
+}
+static void Main()
+{
+	Számláló s = new Számláló();
+	s.tick();
+	s.tick();
+	s.tick();
+	int b = s.állás; // b = 3
+}
+</pre>
+<h3 id="szamitott">Számított értékek</h3>
+Szintén gyakran használt, hogy egy jellemző további jellemzők értékétől függ.
+<pre>
+class Név
+{
+	public string vezetéknév { get; set; }
+	public string keresztnév { get; set; }
+	public string teljesnév 
+	{ 
+		get 
+		{
+			return vezetéknév + " " + keresztnév;
+		}
+	}
+}
+static void Main()
+{
+	Név n = new Név();
+	n.vezetéknév = "Bordák";
+	n.keresztnév = "Tamás";
+	string t = n.teljesnév; // t = "Bordák Tamás"
+}
 
-
+</pre>
 </div>
             </div>
 
