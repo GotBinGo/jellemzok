@@ -1,0 +1,2 @@
+# jellemzok
+C# properyes bemutatása
