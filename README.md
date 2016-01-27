@@ -1,2 +1,2 @@
 # jellemzok
-C# properyes bemutatása
+C# properties bemutatása
